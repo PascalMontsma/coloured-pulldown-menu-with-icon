@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colorful Dropdown Menu</title>
+    <style>
+        /* Styles for Dropdown */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            position: relative;
+        }
+
+        .dropdown-content a .icon {
+            height: 20px;
+            /* Maximum height */
+            width: auto;
+            margin-right: 8px;
+            /* Spacing between icon and text */
+            vertical-align: middle;
+            /* Align icon vertically */
+            fill: #195f84;
+            /* Darker blue for the icon */
+        }
+
+        .dropdown-content a:hover {
+            background-color: black;
+            /* Change to black on hover */
+            color: white;
+            /* Text color white on hover */
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Lighter tint for dropdown items */
+        .dropdown-content a:nth-child(1) {
+            background-color: #F9C6BF;
+        }
+
+        .dropdown-content a:nth-child(2) {
+            background-color: #F9F0BE;
+        }
+
+        .dropdown-content a:nth-child(3) {
+            background-color: #D9F3E0;
+        }
+
+        /* Output color */
+        #selectedItem {
+            margin-top: 10px;
+            font-size: 18px;
+            padding: 10px;
+            display: inline-block;
+            border-radius: 8px;
+            /* Rounded corners */
+        }
+
+        /* Output icon */
+        #selectedItem .icon {
+            height: 20px;
+            /* Maximum height */
+            width: auto;
+            margin-right: 8px;
+            /* Spacing between icon and text */
+            vertical-align: middle;
+            /* Align icon vertically */
+            fill: currentColor;
+            /* Set the fill color to match text color */
+        }
+
+        /* Dropdown button styles */
+        .dropbtn {
+            background-color: #aed9e0;
+            /* Light blue background */
+            color: #195f84;
+            /* Darker blue text color */
+            padding: 12px 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            /* Rounded corners */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="dropdown">
+        <button class="dropbtn">
+            <!-- SVG icon -->
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 -960 960 960">
+                <path fill="#195f84"
+                    d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
+            </svg>
+            Dropdown
+        </button>
+        <div class="dropdown-content" id="dropdown">
+            <a href="#" style="color: #E51C01;"><svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24"
+                    height="24" viewBox="0 -960 960 960">
+                    <path fill="#E51C01"
+                        d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
+                </svg>Failed</a>
+            <a href="#" style="color: #E5C201;"><svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24"
+                    height="24" viewBox="0 -960 960 960">
+                    <path fill="#E5C201"
+                        d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
+                </svg>Pending</a>
+            <a href="#" style="color: #68D084;"><svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24"
+                    height="24" viewBox="0 -960 960 960">
+                    <path fill="#68D084"
+                        d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
+                </svg>Passed</a>
+        </div>
+    </div>
+
+    <!-- Display selected item here -->
+    <div id="selectedItem"></div>
+
+    <script>
+        // Get the dropdown content
+        var dropdownContent = document.getElementById('dropdown');
+        var output = document.getElementById('selectedItem');
+
+        // Add click event listener to each dropdown item
+        dropdownContent.addEventListener('click', function (event) {
+            // Check if the clicked element is an anchor tag
+            if (event.target.tagName === 'A') {
+                // Get the color of the clicked item
+                var color = window.getComputedStyle(event.target).color;
+                var borderColor = color; // Border color same as text color
+                var bgColor = window.getComputedStyle(event.target).backgroundColor;
+                // Set the text, color, and border color of the output
+                output.innerHTML = event.target.innerHTML; // Replace with the whole content, including SVG
+                output.style.color = color;
+                output.style.backgroundColor = bgColor;
+                output.style.border = "2px solid " + borderColor; // Set border color
+            }
+        });
+    </script>
+
+</body>
+
+</html>
